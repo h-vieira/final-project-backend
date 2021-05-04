@@ -6,6 +6,9 @@ import db from './config/elephantSQL.js';   /* db pool */
 
 /* Routes *****************************************************/
 import users  from './routes/user.js';
+import comments  from './routes/comment.js';
+import local  from './routes/local.js';
+import edible  from './routes/edible.js';
 
 /* Models *****************************************************/
 import UsersModel from './models/users.js';
@@ -30,14 +33,13 @@ if (process.env.NODE_ENV != 'production') {
     server.use(morgan('dev'));
 }
 
-server.get('/', async (req, res) => res.send("Connection sucessfull!"));
+server.get('/', async (req, res) => res.send("Connection sucessfull!"))
 
-/* Useable routes *********************************************/
-server.use('/users', users);
-
-
-
-
+      /* Useable routes *********************************************/
+      .use('/users', users)
+      .use('/comments', comments)
+      .use('/local', local)
+      .use('/edible', edible);
 
 
   (async () => {
@@ -52,6 +54,8 @@ server.use('/users', users);
         await UserAuthsModel.sync();
         await AuthOptionsModel.sync();
         await EdiblePinsModel.sync();
+
+       /*  await model.sync();  */
 
 
         server.listen( PORT, console.log(`Server started on port: ${PORT}`.yellow));

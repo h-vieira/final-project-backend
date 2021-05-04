@@ -3,7 +3,7 @@ import UsersModel from '../models/users.js';
 
 
 
-export const getAllUsers = async (req, res) => {
+export const getUser = async (req, res) => {
     try {
         
     } catch (error) {
@@ -18,4 +18,21 @@ export const createUser = async (req, res) => {
    } catch (error) {
         res.status(500).json(error.message);    
    }
+};
+
+export const updateUser= async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+};
+
+
+export const deleteUser= async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
 };
