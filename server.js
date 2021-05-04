@@ -1,10 +1,11 @@
 import express from 'express';
 import morgan from 'morgan';                /* terminal logs */
+import colors from 'colors';                /* more colorfull console.logs */
 import db from './config/elephantSQL.js';   /* db pool */
 
 
 /* Routes *****************************************************/
-/* import users  from './routes/user.js'; */
+import users  from './routes/user.js';
 
 /* Models *****************************************************/
 import UsersModel from './models/users.js';
@@ -13,9 +14,10 @@ import CommentsModel from './models/comments.js';
 import SimilarsModel from './models/similars.js';
 import UserAuthsModel from './models/userAuth.js';
 import AuthOptionsModel from './models/authOptions.js';
+import EdiblePinsModel from './models/ediblePins.js';
 
 /* Controlers *************************************************/
-import UserController from './models/users.js';
+/* import UserController from './models/users.js'; */
 
 
 
@@ -31,7 +33,7 @@ if (process.env.NODE_ENV != 'production') {
 server.get('/', async (req, res) => res.send("Connection sucessfull!"));
 
 /* Useable routes *********************************************/
-
+server.use('/users', users);
 
 
 
@@ -49,10 +51,11 @@ server.get('/', async (req, res) => res.send("Connection sucessfull!"));
         await SimilarsModel.sync();
         await UserAuthsModel.sync();
         await AuthOptionsModel.sync();
+        await EdiblePinsModel.sync();
 
 
-        server.listen( PORT, console.log(`Server started on port ${PORT}`));
-        console.log('Connection: success');
+        server.listen( PORT, console.log(`Server started on port: ${PORT}`.yellow));
+        console.log('Connection: '.yellow + ' SUCCESS '.brightGreen.bold.bgBrightWhite);
 
 
     } catch (err) {
