@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 
 const EdiblesModel = db.define("edibles", {
   
-  edible_id:      { type: Sequelize.UUID, allowNull: false, defaultValue: Sequelize.UUIDV4, primaryKey: true },
+  edible_id:      { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
   name:           { type: Sequelize.STRING, allowNull: false },
   scientificName: { type: Sequelize.STRING, allowNull: true },
   desc:           { type: Sequelize.TEXT },
