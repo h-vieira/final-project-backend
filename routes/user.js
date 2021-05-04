@@ -1,7 +1,7 @@
 import express from 'express';
 
 /* controllers */
-import {createUser, getUser, updateUser, deleteUser} from '../controllers/users.js';
+import {getUser, createUser, updateUser, deleteUser} from '../controllers/users.js';
 
 /* middlewares */
 /* import checkUser from '../middleware/checkUser.js'; */

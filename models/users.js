@@ -13,4 +13,10 @@ const UsersModel = db.define("users", {
   userAuth:     { type: Sequelize.STRING, allowNull: false, defaultValue: 'basic' }
 });
 
+
+/* Relations */
+/* import CommentsModel from './comments.js'
+UsersModel.belongsTo(CommentsModel); */ //pass here a option obj as a second parameter
+
+
 export default UsersModel;

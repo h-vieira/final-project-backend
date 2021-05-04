@@ -8,4 +8,9 @@ const CommentsModel = db.define("comments", {
   user_id:    { type: Sequelize.INTEGER, allowNull: false }
 });
 
+
+/* import UsersModel from './users.js';
+CommentsModel.belongsTo(UsersModel); */
+
+
 export default CommentsModel;
