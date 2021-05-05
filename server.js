@@ -8,7 +8,7 @@ import db from './config/elephantSQL.js';   /* db pool */
 import users  from './routes/user.js';
 import comments  from './routes/comment.js';
 import local  from './routes/local.js';
-import edible  from './routes/edible.js';
+import edibles  from './routes/edible.js';
 
 /* Models *****************************************************/
 import UsersModel from './models/users.js';
@@ -33,13 +33,13 @@ if (process.env.NODE_ENV != 'production') {
     server.use(morgan('dev'));
 }
 
-server.get('/', async (req, res) => res.send("Connection sucessfull!"))
+server.get('/', async (req, res) => res.send("Connection sucessfull!"));
 
       /* Useable routes *********************************************/
-      .use('/users', users)
-      .use('/comments', comments)
-      .use('/local', local)
-      .use('/edible', edible);
+      server.use('/users', users);
+      /* .use('/comments', comments) */
+      server.use('/', local);
+server.use('/edibles', edibles);
 
 
   (async () => {

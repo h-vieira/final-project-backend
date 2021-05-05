@@ -8,7 +8,7 @@ export const getUser = async (req, res) => {
         const { id } = req.params;
         const user = await db.query( `SELECT * FROM users WHERE id = ${id}` );
         if (!user[1].rowCount) return res.status(404).json({ message: `User with id ${id} not found` });
-        res.send(user[1].row);
+        res.send(user[1].rows);
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -21,7 +21,8 @@ export const createUser = async (req, res) => {
             firstName: 'test', 
             lastName: 'test', 
             email: 'tester.zv@gmail.com', 
-            password: '1234'
+            password: '1234',
+            nickname: "test_test"
         });
         res.send(`New user with id of: ${user.id} `);
    } catch (error) {
@@ -33,19 +34,21 @@ export const updateUser= async (req, res) => {
     try {
         const { id } = req.params;
         /* const { firstName, lastName, email, password} = req.body; */
-        const user = await UsersModel.update({
+        await UsersModel.update({
             firstName: 'updated', 
-            lastName: 'update', 
+            lastName: 'updated', 
             email: 'update.zv@gmail.com', 
-            password: '4321' 
+            password: '4321',
+            nickName: 'updated_v2'
         }, {
             where: {
                 id: id
               }
         });
         res.send(`User: ${id} updated `);
-    } catch (error) {
         
+    } catch (error) {
+        res.status(500).json(error.message);
     }
 };
 

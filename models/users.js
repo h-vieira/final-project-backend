@@ -10,7 +10,8 @@ const UsersModel = db.define("users", {
   password:     { type: Sequelize.STRING, allowNull: false },
   can_comment:  { type: Sequelize.BOOLEAN, defaultValue: true},
   banned:       { type: Sequelize.BOOLEAN, defaultValue: false},
-  userAuth:     { type: Sequelize.STRING, allowNull: false, defaultValue: 'basic' }
+  userAuth:     { type: Sequelize.STRING, allowNull: false, defaultValue: 'basic' },
+  nickName:     { type: Sequelize.STRING }
 });
 
 
