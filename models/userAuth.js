@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 
 const UserAuthsModel = db.define("user_auths", {       
   
-  id:   { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, primaryKey: true },
+  id:   { type: Sequelize.INTEGER, primaryKey: true },
   auth: { type: Sequelize.STRING }
 });
 

@@ -1,7 +1,7 @@
 import express from 'express';
 
 /* controllers */
-import {getUser, createUser, updateUser, deleteUser} from '../controllers/users.js';
+import {getUser, createUser, updateUser, deleteUser, getUserPosts} from '../controllers/users.js';
 
 /* middlewares */
 /* import checkUser from '../middleware/checkUser.js'; */
@@ -15,7 +15,9 @@ const users = express.Router();
 */
 users.get('/', getUser);
 users.post('/', createUser);
-users.put('/user/:id', updateUser);
-users.delete('/user/:id', deleteUser);
+users.put('/:id', updateUser);
+users.delete('/:id', deleteUser);
+
+users.get('/:id/posts', getUserPosts);
  
 export default users;

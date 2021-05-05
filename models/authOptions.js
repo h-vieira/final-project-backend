@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 
 const AuthOptionsModel = db.define("auth_options", {    
    
-  id:             { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, primaryKey: true },
+  id:             { type: Sequelize.INTEGER, primaryKey: true },
   auth_id:        { type: Sequelize.INTEGER, },
   auth_control:   { type: Sequelize.BOOLEAN, defaultValue: false },
   ban_user:       { type: Sequelize.BOOLEAN, defaultValue: false },
