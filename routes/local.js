@@ -10,10 +10,10 @@ const local = express.Router();
 
 /* 
     @route  GET / 
-    @desc   Get all users
+    @desc   Get edibles by location
     @access Public
 */
-local.get('/:location', localEdibles);
+local.get('/:stateName', localEdibles);       
 
  
 export default local;

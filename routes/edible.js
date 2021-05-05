@@ -1,23 +1,27 @@
 import express from 'express';         
- /* get eddible info */
 
 /* controllers */
 import { getAllEdibles, getsingeEdible, createEdible, updateEdible, deleteEdible } from '../controllers/edibles.js';
+import { pinEdible } from '../controllers/ediblePins.js';
 
 /* middlewares */
 /* import checkUser from '../middleware/checkUser.js'; */
 
-const edible = express.Router();
+
+const edibles = express.Router();
 
 /* 
     @route  GET / 
     @desc   Get all Edibles
     @access Public
 */
-edible.get('/', getAllEdibles);
-edible.get('/:id', getsingeEdible);
-edible.post('/', createEdible);
-edible.put('/:id', updateEdible);
-edible.delete('/:id', deleteEdible);
- 
-export default edible;
+edibles.get('/all', getAllEdibles);
+edibles.get('/:id', getsingeEdible);
+edibles.post('/', createEdible);
+edibles.put('/:id', updateEdible);
+edibles.delete('/:id', deleteEdible);
+
+/* Map Pins */
+edibles.post('/:id/pin', pinEdible);
+
+export default edibles;
