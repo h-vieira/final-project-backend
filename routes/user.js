@@ -13,7 +13,7 @@ const users = express.Router();
     @desc   Get all users
     @access Public
 */
-users.get('/', getUser);
+users.get('/:id', getUser);
 users.post('/', createUser);
 users.put('/:id', updateUser);
 users.delete('/:id', deleteUser);

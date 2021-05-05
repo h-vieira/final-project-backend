@@ -5,7 +5,10 @@ import UsersModel from '../models/users.js';
 
 export const getUser = async (req, res) => {
     try {
-        
+        const { id } = req.params;
+        const user = await db.query( `SELECT * FROM users WHERE id = ${id}` );
+        if (!user[1].rowCount) return res.status(404).json({ message: `User with id ${id} not found` });
+        res.send(user[1].row);
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -13,8 +16,13 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
    try {
-        const user = await UsersModel.create({ firstName: "test", lastName: "tester", email: "tester.zv@gmail.com", password: "1234" });
-        console.log(colors.green(`New user: ${user} with id of: ${user.id} `))
+        /* const { firstName, lastName, email, password} = req.body; */
+        const user = await UsersModel.create({ 
+            firstName: 'test', 
+            lastName: 'test', 
+            email: 'tester.zv@gmail.com', 
+            password: '1234'
+        });
         res.send(`New user with id of: ${user.id} `);
    } catch (error) {
         res.status(500).json(error.message);    
@@ -23,7 +31,19 @@ export const createUser = async (req, res) => {
 
 export const updateUser= async (req, res) => {
     try {
-        
+        const { id } = req.params;
+        /* const { firstName, lastName, email, password} = req.body; */
+        const user = await UsersModel.update({
+            firstName: 'updated', 
+            lastName: 'update', 
+            email: 'update.zv@gmail.com', 
+            password: '4321' 
+        }, {
+            where: {
+                id: id
+              }
+        });
+        res.send(`User: ${id} updated `);
     } catch (error) {
         
     }
@@ -32,17 +52,19 @@ export const updateUser= async (req, res) => {
 
 export const deleteUser= async (req, res) => {
     try {
-        
+        const { id } = req.params;
+        await db.query( `DELETE FROM users WHERE id = ${id}` );
+        res.send(`User with id: ${id} was deleted`);
+
     } catch (error) {
-        
+        res.status(500).json(error.message);
     }
 };
 
 export const getUserPosts= async (req, res) => {
     try {
         const { id } = req.params;
-        console.log("the id is:".red + id);
-        const UserPosts = await db.query(
+        const userPosts = await db.query(
             
             `SELECT 
                 U.id, U."firstName", 
@@ -61,7 +83,8 @@ export const getUserPosts= async (req, res) => {
                 model: UsersModel,
             }
         );
-        res.json(UserPosts);
+        res.json(userPosts);
+
     } catch (error) {
         res.status(500).json(error.message);   
     }
