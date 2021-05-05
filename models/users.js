@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 
 const UsersModel = db.define("users", {
 
-  id:           { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4,  primaryKey: true },
+  id:           { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true }, 
   firstName:    { type: Sequelize.STRING, allowNull: false },
   lastName:     { type: Sequelize.STRING, allowNull: false },
   email:        { type: Sequelize.STRING, allowNull: false },
@@ -16,7 +16,8 @@ const UsersModel = db.define("users", {
 
 /* Relations */
 /* import CommentsModel from './comments.js'
-UsersModel.belongsTo(CommentsModel); */ //pass here a option obj as a second parameter
 
+UsersModel.hasMany(CommentsModel); 
+CommentsModel.belongsTo(UsersModel); */
 
 export default UsersModel;
