@@ -4,10 +4,13 @@ import EdiblesModel from '../models/edibles.js';
 import EdiblePinsModel from '../models/edibles.js';
 
 export const getAllEdibles = async (req, res) => {
-    try {
-        const allTheEdibles = await db.query( `SELECT * FROM "edibles"`);
+    try {                          
+        const { page } = req.params;   
+        const limit = 10;   // this limit in the future should be passed in the params
+        const offset = ( (page - 1) * limit );
+        const allTheEdibles = await db.query( `SELECT * FROM "edibles"  ORDER BY id ASC LIMIT '${limit}' OFFSET '${offset}'`);
         if (!allTheEdibles[1].rowCount) return res.status(404).json({ message: `No entries on the database were found` });
-        res.send(allTheEdibles[1].row);
+        res.send(allTheEdibles[1].rows);
 
     } catch (error) {
         res.status(500).json(error.message);

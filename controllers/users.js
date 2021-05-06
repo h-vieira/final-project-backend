@@ -14,9 +14,9 @@ export const getUser = async (req, res) => {
     }
 };
 
-export const createUser = async (req, res) => {
+/* export const createUser = async (req, res) => {
    try {
-        /* const { firstName, lastName, email, password} = req.body; */
+        //const { firstName, lastName, email, password} = req.body;
         const user = await UsersModel.create({ 
             firstName: 'test', 
             lastName: 'test', 
@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
    } catch (error) {
         res.status(500).json(error.message);    
    }
-};
+}; */
 
 export const updateUser= async (req, res) => {
     try {
@@ -86,7 +86,7 @@ export const getUserPosts= async (req, res) => {
                 model: UsersModel,
             }
         );
-        res.json(userPosts);
+        res.json({userPosts});
 
     } catch (error) {
         res.status(500).json(error.message);   

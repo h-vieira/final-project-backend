@@ -12,7 +12,7 @@ const EdiblesModel = db.define("edibles", {
   climate_type:   { type: Sequelize.STRING },
   harvest_desc:   { type: Sequelize.STRING },
   image:          { type: Sequelize.STRING },
-  author:         { type: Sequelize.STRING, defaultValue: 'current user' },// i need to pass hte value here
+  author:         { type: Sequelize.STRING },// i need to pass hte value here
   edible:         { type: Sequelize.BOOLEAN, defaultValue: false },
   hidden:         { type: Sequelize.BOOLEAN, defaultValue: true }
 });

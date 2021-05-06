@@ -15,7 +15,7 @@ const edibles = express.Router();
     @desc   Get all Edibles
     @access Public
 */
-edibles.get('/all', getAllEdibles);
+edibles.get('/all/:page/', getAllEdibles); //edibles.get('/all/:page/:limit/', getAllEdibles); set and limit of x elements per page <user choice>
 edibles.get('/:id', getsingeEdible);
 edibles.post('/', createEdible);
 edibles.put('/:id', updateEdible);

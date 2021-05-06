@@ -6,9 +6,10 @@ import db from './config/elephantSQL.js';   /* db pool */
 
 /* Routes *****************************************************/
 import users  from './routes/user.js';
-import comments  from './routes/comment.js';
+/* import comments  from './routes/comment.js'; */
 import local  from './routes/local.js';
 import edibles  from './routes/edible.js';
+import auth  from './routes/auth.js';
 
 /* Models *****************************************************/
 import UsersModel from './models/users.js';
@@ -19,12 +20,6 @@ import UserAuthsModel from './models/userAuth.js';
 import AuthOptionsModel from './models/authOptions.js';
 import EdiblePinsModel from './models/ediblePins.js';
 
-/* Controlers *************************************************/
-/* import UserController from './models/users.js'; */
-
-
-
-
 
 const server = express();
 const PORT = process.env.PORT || 5000;
@@ -34,18 +29,22 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 server.get('/', async (req, res) => res.send("Connection sucessfull!"));
+// enable express.json() to be able to parse body of the request into a json  req.body
+server.use(express.json());
 
-      /* Useable routes *********************************************/
-      server.use('/users', users);
-      /* .use('/comments', comments) */
-      server.use('/', local);
+
+/* Useable routes *********************************************/
+server.use('/users', users);
+/* server.use('/comments', comments); */
+server.use('/', local);
 server.use('/edibles', edibles);
+server.use('/auth', auth);
+    
 
-
-  (async () => {
+(async () => {
     try {
         await db.authenticate();
-
+        
         /* sync the tables to database | ( if(!exist) => create() ) */
         await UsersModel.sync();
         await EdiblesModel.sync();
@@ -55,16 +54,14 @@ server.use('/edibles', edibles);
         await AuthOptionsModel.sync();
         await EdiblePinsModel.sync();
 
-       /*  await model.sync();  */
-
+        /*  await model.sync();  */
 
         server.listen( PORT, console.log(`Server started on port: ${PORT}`.yellow));
         console.log('Connection: '.yellow + ' SUCCESS '.brightGreen.bold.bgBrightWhite);
 
-
     } catch (err) {
         console.error('Unable to connect' + err);
     }
-  })();
+})();
  
   
