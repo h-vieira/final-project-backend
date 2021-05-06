@@ -34,6 +34,7 @@ export const signIn = async (req, res) => {
     const verifyUser = await db.query(`SELECT * from users WHERE email ='${email}'`);
     if(verifyUser[1].rowCount) throw new Error('The email address or password is incorrect. Please try again.');
     res.json(verifyUser);
+    const match = await bcrypt.compare(password, verifyUser[1].rows.password);
 
     // test this in postman ##############################################################################################################################
     // video a 1:40:41segundos 
