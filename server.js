@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';                /* terminal logs */
 import colors from 'colors';                /* more colorfull console.logs */
 import db from './config/elephantSQL.js';   /* db pool */
+import cors from 'cors';
 
 
 /* Routes *****************************************************/
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV != 'production') {
 }
 
 server.get('/', async (req, res) => res.send("Connection sucessfull!"));
+server.use(cors({ origin: '*', credentials: true}))
 // enable express.json() to be able to parse body of the request into a json  req.body
 server.use(express.json());
 
