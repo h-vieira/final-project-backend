@@ -8,13 +8,20 @@ export const getAllEdibles = async (req, res) => {
         const { page } = req.params;   
         const limit = 10;   // this limit in the future should be passed in the params
         const offset = ( (page - 1) * limit );
+        
+        const count = await db.query(`SELECT COUNT(id) FROM edibles`);
+        const pages = Math.trunc(((count[0][0].count) / limit ) +0.9)  ;
+        
+        
         const allTheEdibles = await db.query( `SELECT * FROM "edibles"  ORDER BY id ASC LIMIT '${limit}' OFFSET '${offset}'`);
         if (!allTheEdibles[1].rowCount) return res.status(404).json({ message: `No entries on the database were found` });
-        res.send(allTheEdibles[1].rows);
+        const request = allTheEdibles[1].rows;
+        const response = { pages: pages, request };
+        res.send(response);
 
     } catch (error) {
         res.status(500).json(error.message);
-    }
+    }s
 };
 
 export const getsingeEdible = async (req, res) => {
