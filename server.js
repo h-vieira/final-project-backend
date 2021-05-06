@@ -29,11 +29,12 @@ if (process.env.NODE_ENV != 'production') {
     server.use(morgan('dev'));
 }
 
-server.get('/', async (req, res) => res.send("Connection sucessfull!"));
 server.use(cors({ origin: '*', credentials: true}))
 // enable express.json() to be able to parse body of the request into a json  req.body
 server.use(express.json());
 
+
+server.use('/', (req, res) => res.send("Connection sucessfull!"));
 
 /* Useable routes *********************************************/
 server.use('/users', users);
