@@ -19,9 +19,9 @@ export const signUp = async (req, res) => {
         //since it returns a prommisse I can destructor (user) and take values it will have { id, name } 
         const { id, lastName: name } = await UsersModel.create({ firstName, lastName, email, password: hashPassword });  
         //check the tokken at jwt.io :D
-        const tokken = jwt.sign({id, name }, process.env.JWT_SECRET);
+        const token = jwt.sign({id, name }, process.env.JWT_SECRET);
 
-        res.send(`New user with id of: ${id} created `);
+        res.send({ token });
 
     } catch (error) {
         res.status(500).json({ error: error.message});
@@ -32,12 +32,14 @@ export const signIn = async (req, res) => {
  try {
     const { email, password } = req.body;
     const verifyUser = await db.query(`SELECT * from users WHERE email ='${email}'`);
-    if(verifyUser[1].rowCount) throw new Error('The email address or password is incorrect. Please try again.');
-    res.json(verifyUser);
-    const match = await bcrypt.compare(password, verifyUser[1].rows.password);
+    if(!verifyUser[1].rowCount) throw new Error('The email address or password is incorrect. Please try again.');
+    const match = await bcrypt.compare(password, verifyUser[1].rows[0].password);
+    if(!match) throw new Error('The email address or password is incorrect. Please try again.');
 
-    // test this in postman ##############################################################################################################################
-    // video a 1:40:41segundos 
+     const token = jwt.sign({ id: verifyUser[1].rows[0].id, name: verifyUser[1].rows[0].firstName }, process.env.JWT_SECRET);
+
+    res.json({ token });
+
 
  } catch (error) {
     res.status(500).json({ error: error.message});
@@ -46,4 +48,12 @@ export const signIn = async (req, res) => {
 
 export const logout = async (req, res) => {
 
+};
+
+export const getMyInfo = async (req, res) => {
+    try {
+        res.send(req.user);
+    } catch (error) {
+        res.status(500).json({ error: error.message});
+    }
 };

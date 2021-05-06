@@ -64,7 +64,7 @@ export const deleteUser= async (req, res) => {
     }
 };
 
-export const getUserPosts= async (req, res) => {
+export const getUserComments= async (req, res) => {
     try {
         const { id } = req.params;
         const userPosts = await db.query(
@@ -86,7 +86,7 @@ export const getUserPosts= async (req, res) => {
                 model: UsersModel,
             }
         );
-        res.json({userPosts});
+        res.json({userComments});
 
     } catch (error) {
         res.status(500).json(error.message);   

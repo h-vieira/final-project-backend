@@ -2,6 +2,14 @@ import colors from 'colors';
 import db from '../config/elephantSQL.js';
 import EdiblePinsModel from '../models/ediblePins.js';
 
+
+export const getEdiblePins = async (req, res) => {
+    try {
+        res.send("this route is not complete"); //not complete
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+}
 export const pinEdible = async (req, res) => {
     try {
         const { id } = req.params;
