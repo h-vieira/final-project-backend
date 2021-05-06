@@ -46,8 +46,8 @@ export const updateComment  = async (req, res) => {
 
 export const deleteComment  = async (req, res) => {
     try {
-        const { text } = req.params;
-        await db.query( `DELETE FROM comments WHERE "id" = '${text}'` );
+        const { id, text } = req.params;
+        await db.query( `DELETE FROM comments WHERE user_id = '${id}' AND "id" = '${text}'` );
         res.send(`Comment with id: ${text} was deleted`);
 
     } catch (error) {
