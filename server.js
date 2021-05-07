@@ -6,11 +6,11 @@ import cors from 'cors';
 
 
 /* Routes *****************************************************/
-import users  from './routes/user.js';
+import usersRouter  from './routes/user.js';
 /* import comments  from './routes/comment.js'; */
-import local  from './routes/local.js';
-import edibles  from './routes/edible.js';
-import auth  from './routes/auth.js';
+import localRouter  from './routes/local.js';
+import ediblesRouter  from './routes/edible.js';
+import authRouter  from './routes/auth.js';
 
 /* Models *****************************************************/
 import UsersModel from './models/users.js';
@@ -36,13 +36,12 @@ server.use(express.json());
 
 
 /* Useable routes *********************************************/
-server.use('/users', users);
+server.use('/users', usersRouter);
 /* server.use('/comments', comments); */
-server.use('/', local);
-server.use('/edibles', edibles);
-server.use('/auth', auth);
+server.use('/', localRouter);
+server.use('/edibles', ediblesRouter);
+server.use('/auth', authRouter);
     
-
 (async () => {
     try {
         await db.authenticate();

@@ -9,14 +9,15 @@ export const getAllEdibles = async (req, res) => {
         const limit = 10;   // this limit in the future should be passed in the params
         const offset = ( (page - 1) * limit );
         
-        const count = await db.query(`SELECT COUNT(id) FROM edibles`);
-        const pages = Math.trunc(((count[0][0].count) / limit ) +0.9)  ;
-        
+        const count = await db.query(`SELECT COUNT(*) FROM edibles`);
         
         const allTheEdibles = await db.query( `SELECT * FROM "edibles"  ORDER BY id ASC LIMIT '${limit}' OFFSET '${offset}'`);
         if (!allTheEdibles[1].rowCount) return res.status(404).json({ message: `No entries on the database were found` });
-        const request = allTheEdibles[1].rows;
-        const response = { pages: pages, request };
+
+        const response = { 
+            pages:   Math.trunc(((count[0][0].count) / limit ) +0.9), 
+            request: allTheEdibles[1].rows 
+        };
         res.send(response);
 
     } catch (error) {
