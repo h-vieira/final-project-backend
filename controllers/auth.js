@@ -21,7 +21,7 @@ export const signUp = async (req, res) => {
         //check the tokken at jwt.io :D
         const token = jwt.sign({id, name }, process.env.JWT_SECRET);
 
-        res.send(token);
+        res.send({token});
 
     } catch (error) {
         res.status(500).json({ error: error.message});

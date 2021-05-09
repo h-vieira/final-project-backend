@@ -24,7 +24,7 @@ import EdiblePinsModel from './models/ediblePins.js';
 
 const server = express();
 const PORT = process.env.PORT || 5000;
-/* console.log('hello', process.env.PORT) */
+console.log('hello', process.env.PORT)
 if (process.env.NODE_ENV != 'production') {
     server.use(morgan('dev'));
 }
