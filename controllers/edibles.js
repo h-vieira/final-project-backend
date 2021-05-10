@@ -30,8 +30,8 @@ export const getsingeEdible = async (req, res) => {
         const { id } = req.params;
         const edible = await db.query( `SELECT * FROM "edibles" WHERE id = ${id}`);
         if (!edible[1].rowCount) return res.status(404).json({ message: `This is not eddible...` });
-        res.send(edible[1].row);
-
+        res.send(edible[1].rows);
+        
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -53,7 +53,7 @@ export const createEdible = async (req, res) => {
             edible: false,
             hidden: false
         });
-        res.json( { success : `A new edible with id:${edible.id} was created!` });
+        res.json( { success : `A new edible with id:${edible.id} was created!`, id:edible.id } );
 
     } catch (error) {
         res.status(500).json({ error: error.message});
@@ -68,7 +68,7 @@ export const updateEdible = async (req, res) => {
             name: name,
             scientificName: scientificName,
             desc: desc,
-            sensory_desc: sensory_desc,
+             sensory_desc,
             climate_desc: climate_desc,
             climate_type: climate_type,
             harvest_desc: harvest_desc,
