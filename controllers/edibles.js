@@ -39,19 +39,19 @@ export const getsingeEdible = async (req, res) => {
 
 export const createEdible = async (req, res) => {
     try {
-       /*  const { name, scientificName, desc, sensory_desc, climate_desc, climate_type, harvest_desc, author } = req.body; */
+        const { name, scientificName, desc, sensory_desc, climate_desc, climate_type, harvest_desc, image } = req.body;
         const edible = await EdiblesModel.create({
-            name: 'Plant 1',
-            scientificName: 'plantis-verdis',
-            desc: 'a green plant',
-            sensory_desc: 'rough to the touch and crunchy',
-            climate_desc: 'it rains a lot',
-            climate_type: 'Marine west coast',
-            harvest_desc: ' pick it by the roots',
-            image: 'https://c.stocksy.com/a/103000/z9/11533.jpg',
-            author: 'El Professor',
+            name: name,
+            scientificName: scientificName,
+            desc: desc,
+            sensory_desc: sensory_desc,
+            climate_desc: climate_desc,
+            climate_type: climate_type,
+            harvest_desc: harvest_desc,
+            image: image,
+            author: '',
             edible: false,
-            hidden: true
+            hidden: false
         });
         res.send(`A new edible with id:${edible.id} was created!`);
 
@@ -63,17 +63,18 @@ export const createEdible = async (req, res) => {
 export const updateEdible = async (req, res) => {
     try {   
         const { id } = req.params;
+        const { name, scientificName, desc, sensory_desc, climate_desc, climate_type, harvest_desc, image, edible  } = req.body;
         await EdiblesModel.update({
-            name: 'Plant 1 updated',
-            scientificName: 'plantis-verdis updated ',
-            desc: 'a green plant updated',
-            sensory_desc: 'rough to the touch and crunchy updated',
-            climate_desc: 'it rains a lot updated',
-            climate_type: 'Marine west coast updated',
-            harvest_desc: ' pick it by the roots updated',
-            image: 'https://c.stocksy.com/a/103000/z9/11533.jpg',
-            author: 'El Professor updated',
-            edible: true,
+            name: name,
+            scientificName: scientificName,
+            desc: desc,
+            sensory_desc: sensory_desc,
+            climate_desc: climate_desc,
+            climate_type: climate_type,
+            harvest_desc: harvest_desc,
+            image: image,
+            author: '',
+            edible: edible,
             hidden: false
         }, {
             where: {
