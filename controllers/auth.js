@@ -10,6 +10,10 @@ import db from '../config/elephantSQL.js';
 export const signUp = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
+        const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.{6,})");
+        if (!EMAIL_REGEX.test(email))  throw new Error('Enter a valid Email <example@domain.com>');
+        if (!strongRegex.test(password)) throw new Error('Your password must have at least  6 characters, include one number [0-9] and a lowercase letter');
 
         const verifyUser = await db.query(`SELECT * from users WHERE email ='${email}'`);
         if(verifyUser[1].rowCount) throw new Error('This Email is already taken'); /* return res.status(403).json({error: 'This Email is already taken' }); */
