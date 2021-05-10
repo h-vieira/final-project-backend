@@ -34,7 +34,7 @@ export const signIn = async (req, res) => {
     const verifyUser = await db.query(`SELECT * from users WHERE email ='${email}'`);
     if(!verifyUser[1].rowCount) throw new Error('The email address or password is incorrect. Please try again.');
     const match = await bcrypt.compare(password, verifyUser[1].rows[0].password);
-    if(!match) throw new Error('The email address or password is incorrect. Please try again.');
+    if(!match) throw new Error('The password is incorrect. Please try again.');
 
      const token = jwt.sign({ id: verifyUser[1].rows[0].id, name: verifyUser[1].rows[0].firstName }, process.env.JWT_SECRET);
 
@@ -53,6 +53,14 @@ export const logout = async (req, res) => {
 export const getMyInfo = async (req, res) => {
     try {
         res.send(req.user);
+    } catch (error) {
+        res.status(500).json({ error: error.message});
+    }
+};
+
+export const aprovedSession = async (req, res) => {
+    try {
+        res.json({ success: 'Valid token'});
     } catch (error) {
         res.status(500).json({ error: error.message});
     }
