@@ -53,10 +53,10 @@ export const createEdible = async (req, res) => {
             edible: false,
             hidden: false
         });
-        res.send(`A new edible with id:${edible.id} was created!`);
+        res.json( { success : `A new edible with id:${edible.id} was created!` });
 
     } catch (error) {
-        res.status(500).json(error.message); 
+        res.status(500).json({ error: error.message});
     }
 };
 
